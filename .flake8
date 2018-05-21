@@ -1,0 +1,7 @@
+[flake8]
+max-line-length = 100
+ignore = D100,D101,D102,D103,D105,D205,D400,N802
+exclude = ./node_modules/*,*/migrations/*,*/settings/*,./venv/*,./env/*
+
+per-file-ignores =
+    _scripts/*: E402
