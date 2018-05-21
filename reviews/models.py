@@ -8,5 +8,8 @@ class ReviewPizza(models.Model):
     avaliacao = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)])
 
+    class Meta:
+        unique_together = ('sabor', 'pizzaria')
+
     def __str__(self):
         return f"{self.sabor.nome} - {self.pizzaria.nome} - {self.avaliacao}"
