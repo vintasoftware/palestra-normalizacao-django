@@ -3,7 +3,7 @@ import sys
 import time
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # fix PYTHONPATH
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "normalization.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pizzaproject.settings")
 import django
 django.setup()
 
