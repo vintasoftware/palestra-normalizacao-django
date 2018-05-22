@@ -51,5 +51,8 @@ class ItemCardapio(models.Model):
     sabor = models.ForeignKey('pizzas.SaborPizza', on_delete=models.PROTECT)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
 
+    class Meta:
+        unique_together = ('pizzaria', 'sabor')
+
     def __str__(self):
         return f"{self.pizzaria.nome} - {self.sabor.nome} - {self.preco}"

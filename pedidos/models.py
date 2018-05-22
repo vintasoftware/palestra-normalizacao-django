@@ -30,7 +30,10 @@ class ItemPedido(models.Model):
 
     def clean(self):
         # Infelizmente não há como garantir a nível de banco com constraints
-        # a consistência entre `item_cardapio` e `pedido`. Por isso, fazemos aqui no `clean`:
+        # a consistência entre `item_cardapio` e `pedido.pizzaria`.
+        # Isto exigiria uma chave estrangeira composta.
+        # Ver: https://github.com/rapilabs/blog/blob/master/articles/same-parent-db-pattern.md
+        # Por isso, fazemos aqui no `clean`:
         if not self.pedido.pizzaria.itens_cardapio.filter(id=self.item_cardapio.id).exists():
             raise ValidationError(
                 f"O item \"{self.item_cardapio}\" não pertence "
