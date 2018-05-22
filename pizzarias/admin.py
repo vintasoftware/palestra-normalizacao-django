@@ -8,9 +8,12 @@ class ItemCardapioInline(admin.StackedInline):
 
 
 class PizzariaAdmin(admin.ModelAdmin):
-    list_display = ('nome',)
+    list_display = ('nome', 'faturamento', 'maior_cliente')
     search_fields = ('nome',)
     inlines = (ItemCardapioInline,)
+
+    def get_queryset(self, request):
+        return Pizzaria.objects.annotate_faturamento().annotate_maior_cliente()
 
 
 admin.site.register(Pizzaria, PizzariaAdmin)

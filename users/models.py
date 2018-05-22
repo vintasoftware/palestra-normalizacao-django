@@ -31,7 +31,8 @@ class User(AbstractBaseUser, PermissionsMixin, models.Model):
 
 
 class Endereco(models.Model):
-    usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    usuario = models.ForeignKey(
+        'users.User', related_name='enderecos', on_delete=models.CASCADE)
     endereco = models.TextField()
     ativo = models.BooleanField()
 
