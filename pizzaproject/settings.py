@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'pizzas',
     'reviews',
     'pedidos',
+    'relatorios',
 ]
 
 MIDDLEWARE = [

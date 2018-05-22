@@ -9,15 +9,15 @@ class PizzariaQuerySet(models.QuerySet):
     def annotate_faturamento(self):
         return self.annotate(_faturamento=Sum('pedidos__valor_total'))
 
-    def annotate_maior_cliente(self):
-        maior_cliente_subquery = Usuario.objects.filter(
+    def annotate_maior_cliente_id(self):
+        maior_cliente_id_subquery = Usuario.objects.filter(
             enderecos__pedidos__pizzaria=OuterRef('pk'),
         ).annotate(
             _valor_total_pedidos=Sum('enderecos__pedidos__valor_total')
         ).order_by(
             '-_valor_total_pedidos'
-        ).values('email')[:1]
-        return self.annotate(_maior_cliente=Subquery(maior_cliente_subquery))
+        ).values('id')[:1]
+        return self.annotate(_maior_cliente_id=Subquery(maior_cliente_id_subquery))
 
 
 class Pizzaria(models.Model):
@@ -37,12 +37,12 @@ class Pizzaria(models.Model):
             .annotate_faturamento().values('_faturamento').get()['_faturamento']
 
     @property
-    def maior_cliente(self):
-        if hasattr(self, '_maior_cliente'):
-            return self._maior_cliente
+    def maior_cliente_id(self):
+        if hasattr(self, '_maior_cliente_id'):
+            return self._maior_cliente_id
 
         return Pizzaria.objects.filter(pk=self.pk)\
-            .annotate_maior_cliente().values('_maior_cliente').get()['_maior_cliente']
+            .annotate_maior_cliente_id().values('_maior_cliente_id').get()['_maior_cliente_id']
 
 
 class ItemCardapio(models.Model):
