@@ -29,6 +29,8 @@ class ItemPedido(models.Model):
     quantidade = models.IntegerField(validators=[MinValueValidator(1)])
 
     def clean(self):
+        # Infelizmente não há como garantir a nível de banco com constraints
+        # a consistência entre `item_cardapio` e `pedido`. Por isso, fazemos aqui no `clean`:
         if not self.pedido.pizzaria.itens_cardapio.filter(id=self.item_cardapio.id).exists():
             raise ValidationError(
                 f"O item \"{self.item_cardapio}\" não pertence "
