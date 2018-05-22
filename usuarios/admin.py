@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from users.models import User, Endereco
+from usuarios.models import Usuario, Endereco
 
 
-class CustomUserAdmin(UserAdmin):
+class UsuarioAdmin(UserAdmin):
     list_display = ('id', 'email',)
     list_filter = ('is_active', 'is_staff', 'groups',)
     search_fields = ('email',)
@@ -24,5 +24,5 @@ class CustomUserAdmin(UserAdmin):
     )
 
 
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Endereco)

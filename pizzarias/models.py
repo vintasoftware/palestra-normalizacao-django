@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Sum, OuterRef, Subquery
 
-from users.models import User
+from usuarios.models import Usuario
 
 
 class PizzariaQuerySet(models.QuerySet):
@@ -10,7 +10,7 @@ class PizzariaQuerySet(models.QuerySet):
         return self.annotate(_faturamento=Sum('pedidos__valor_total'))
 
     def annotate_maior_cliente(self):
-        maior_cliente_subquery = User.objects.filter(
+        maior_cliente_subquery = Usuario.objects.filter(
             enderecos__pedidos__pizzaria=OuterRef('pk'),
         ).annotate(
             _valor_total_pedidos=Sum('enderecos__pedidos__valor_total')

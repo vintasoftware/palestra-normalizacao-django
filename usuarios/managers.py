@@ -1,7 +1,7 @@
 from django.contrib.auth.models import BaseUserManager
 
 
-class UserManager(BaseUserManager):
+class UsuarioManager(BaseUserManager):
 
     def create_user(self, email, password=None, **kwargs):
         email = self.normalize_email(email)

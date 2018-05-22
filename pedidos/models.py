@@ -9,7 +9,7 @@ class Pedido(models.Model):
     # `on_delete=models.PROTECT` aqui para evitar a deleção de um Endereco
     # relacionado a Pedidos
     endereco_usuario = models.ForeignKey(
-        'users.Endereco', related_name='pedidos', on_delete=models.PROTECT)
+        'usuarios.Endereco', related_name='pedidos', on_delete=models.PROTECT)
     # valor_total aqui pois preços dos itens podem mudar:
     valor_total = models.DecimalField(max_digits=6, decimal_places=2)
     data = models.DateTimeField()

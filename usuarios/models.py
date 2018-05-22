@@ -2,10 +2,10 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from .managers import UserManager
+from .managers import UsuarioManager
 
 
-class User(AbstractBaseUser, PermissionsMixin, models.Model):
+class Usuario(AbstractBaseUser, PermissionsMixin, models.Model):
     email = models.EmailField(max_length=255, unique=True)
     is_staff = models.BooleanField(
         default=False,
@@ -16,7 +16,7 @@ class User(AbstractBaseUser, PermissionsMixin, models.Model):
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
 
-    objects = UserManager()
+    objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'
 
@@ -32,7 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin, models.Model):
 
 class Endereco(models.Model):
     usuario = models.ForeignKey(
-        'users.User', related_name='enderecos', on_delete=models.CASCADE)
+        'usuarios.Usuario', related_name='enderecos', on_delete=models.CASCADE)
     endereco = models.TextField()
     ativo = models.BooleanField()
 

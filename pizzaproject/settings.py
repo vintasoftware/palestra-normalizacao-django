@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'users',
+    'usuarios',
     'pizzarias',
     'pizzas',
     'reviews',
