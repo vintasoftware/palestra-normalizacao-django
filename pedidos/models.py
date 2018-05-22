@@ -28,6 +28,9 @@ class ItemPedido(models.Model):
     # Mas também é necessário esta tabela intermediária porque um ItemPedido tem quantidade:
     quantidade = models.IntegerField(validators=[MinValueValidator(1)])
 
+    class Meta:
+        unique_together = ('pedido', 'item_cardapio')
+
     def clean(self):
         # Infelizmente não há como garantir a nível de banco com constraints
         # a consistência entre `item_cardapio` e `pedido.pizzaria`.
