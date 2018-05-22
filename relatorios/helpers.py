@@ -9,7 +9,7 @@ def atualizar_relatorios_pizzaria():
         .annotate_faturamento()
         .annotate_maior_cliente_id())
 
-    # prefetch Usuarios maior_cliente_id manualmente
+    # prefetch Usuarios por maior_cliente_id manualmente
     maiores_clientes = Usuario.objects.filter(id__in=[p.maior_cliente_id for p in todas_pizzarias])
     id_maiores_clients_dict = {c.id: c for c in maiores_clientes}
 
