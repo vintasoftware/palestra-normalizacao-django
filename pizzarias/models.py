@@ -33,14 +33,16 @@ class Pizzaria(models.Model):
         if hasattr(self, '_faturamento'):
             return self._faturamento
 
-        return Pizzaria.objects.annotate_faturamento().filter(pk=self.pk).get()._faturamento
+        return Pizzaria.objects.filter(pk=self.pk)\
+            .annotate_faturamento().values('_faturamento').get()['_faturamento']
 
     @property
     def maior_cliente(self):
         if hasattr(self, '_maior_cliente'):
             return self._maior_cliente
 
-        return Pizzaria.objects.annotate_maior_cliente().filter(pk=self.pk).get()._maior_cliente
+        return Pizzaria.objects.filter(pk=self.pk)\
+            .annotate_maior_cliente().values('_maior_cliente').get()['_maior_cliente']
 
 
 class ItemCardapio(models.Model):

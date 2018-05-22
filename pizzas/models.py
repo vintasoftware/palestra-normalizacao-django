@@ -29,7 +29,8 @@ class SaborPizza(models.Model):
             return self._tem_lactose
 
         # return self.ingredientes.filter(tem_lactose=True).exists()
-        return SaborPizza.objects.annotate_tem_lactose().filter(pk=self.pk).get()._tem_lactose
+        return SaborPizza.objects.filter(pk=self.pk)\
+            .annotate_tem_lactose().values('_tem_lactose').get()['_tem_lactose']
 
     def __str__(self):
         return self.nome
