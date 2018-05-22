@@ -6,6 +6,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pizzaproject.settings")
 import django
 django.setup()
 
+from django.db.models import Count
+
 from multiprocessing.dummy import Pool as ThreadPool
 
 from pizzarias.models import Pizzaria
@@ -46,7 +48,23 @@ def criar_concorrentemente(tamanho_pool):
     pool.join()
 
 
+def detectar_anomalia():
+    # esta anomalia só vai acontecer na migração 0001 de reviews,
+    # que é a que não tem `unique_together` em `ReviewPizza`,
+    # então rodar: python manage.py migrate reviews 0001
+    qs = ReviewPizza.objects.values(
+        'sabor__nome', 'pizzaria__nome'
+    ).annotate(
+        count=Count('sabor__nome')
+    ).filter(count__gt=1)
+    for anomalia in qs:
+        print(
+            f"Anomalia detectada: "
+            f"{anomalia['sabor__nome']}, {anomalia['pizzaria__nome']}")
+
+
 criar_pizzaria()
 criar_sabor_pizza()
 deletar_reviews_antigos()
 criar_concorrentemente(4)
+detectar_anomalia()

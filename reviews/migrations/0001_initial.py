@@ -24,8 +24,4 @@ class Migration(migrations.Migration):
                 ('sabor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pizzas.SaborPizza')),
             ],
         ),
-        migrations.AlterUniqueTogether(
-            name='reviewpizza',
-            unique_together={('sabor', 'pizzaria')},
-        ),
     ]

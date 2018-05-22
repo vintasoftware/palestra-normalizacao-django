@@ -21,7 +21,7 @@ class PizzariaQuerySet(models.QuerySet):
 
 
 class Pizzaria(models.Model):
-    nome = models.CharField(max_length=255)
+    nome = models.CharField(max_length=255, unique=True)
 
     objects = PizzariaQuerySet.as_manager()
 
