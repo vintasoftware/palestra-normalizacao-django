@@ -28,3 +28,12 @@ class User(AbstractBaseUser, PermissionsMixin, models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Endereco(models.Model):
+    usuario = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    endereco = models.TextField()
+    ativo = models.BooleanField()
+
+    def __str__(self):
+        return f"{self.usuario.email} - {self.endereco}"
