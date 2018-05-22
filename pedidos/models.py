@@ -19,7 +19,7 @@ class Pedido(models.Model):
 
 
 class ItemPedido(models.Model):
-    pedido = models.ForeignKey('Pedido', related_name='itens', on_delete=models.CASCADE)
+    pedido = models.ForeignKey('pedidos.Pedido', related_name='itens', on_delete=models.CASCADE)
     # Único jeito de proteger um m2m de deleções é com uma tabela intermediária.
     # Com esta tabela, conseguimos evitar que um Pedido
     # tenha `itens` deletados se tentarem deletar um ItemCardapio.
