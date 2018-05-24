@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Exists, OuterRef
 
+from denorm import denormalized, depend_on_related
 from django_pgviews import view
 
 
@@ -34,6 +35,11 @@ class SaborPizza(models.Model):
         return SaborPizza.objects.filter(pk=self.pk)\
             .annotate_tem_lactose().values('_tem_lactose').get()['_tem_lactose']
 
+    @denormalized(models.BooleanField)
+    @depend_on_related('Ingrediente')
+    def tem_lactose_denormalized(self):
+        return self.tem_lactose
+
     def __str__(self):
         return self.nome
 
@@ -49,7 +55,7 @@ class Ingrediente(models.Model):
 class SaborPizzaMaterializedView(view.MaterializedView):
     id = models.IntegerField(primary_key=True)
     nome = models.CharField(max_length=255)
-    sem_lactose = models.BooleanField()
+    tem_lactose = models.BooleanField()
 
     sql = '''
         SELECT
@@ -60,7 +66,7 @@ class SaborPizzaMaterializedView(view.MaterializedView):
                 FROM "pizzas_ingrediente" U0
                 INNER JOIN "pizzas_saborpizza_ingredientes" U1 ON U0."id" = U1."ingrediente_id"
                 WHERE U1."saborpizza_id" = "pizzas_saborpizza"."id" AND U0."tem_lactose" = TRUE
-            ) AS sem_lactose
+            ) AS tem_lactose
         FROM
             pizzas_saborpizza
     '''

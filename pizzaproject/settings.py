@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
     'django_pgviews',
+    'denorm',
 
     'usuarios',
     'pizzarias',
@@ -63,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'denorm.middleware.DenormMiddleware',
 ]
 
 ROOT_URLCONF = 'pizzaproject.urls'
