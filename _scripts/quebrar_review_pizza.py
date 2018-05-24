@@ -55,7 +55,9 @@ def detectar_anomalia():
     qs = ReviewPizza.objects.values(
         'sabor__nome', 'pizzaria__nome'
     ).annotate(
-        count=Count('sabor__nome')
+        # não usar distinct aqui,
+        # pois queremos identificar se {sabor, pizzaria} são únicos na tabela inteira
+        count=Count('sabor')
     ).filter(count__gt=1)
     for anomalia in qs:
         print(
