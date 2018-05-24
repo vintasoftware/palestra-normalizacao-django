@@ -10,7 +10,8 @@ class Pedido(models.Model):
     # relacionado a Pedidos
     endereco_usuario = models.ForeignKey(
         'usuarios.Endereco', related_name='pedidos', on_delete=models.PROTECT)
-    # valor_total aqui pois preços dos itens podem mudar:
+    # valor_total aqui pois preços dos itens podem mudar,
+    # ver `calcular_valor_total_pedido` e `PedidoAdmin`
     valor_total = models.DecimalField(max_digits=6, decimal_places=2)
     data = models.DateTimeField()
 
