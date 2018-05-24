@@ -36,7 +36,7 @@ class SaborPizza(models.Model):
             .annotate_tem_lactose().values('_tem_lactose').get()['_tem_lactose']
 
     @denormalized(models.BooleanField)
-    @depend_on_related('Ingrediente')
+    @depend_on_related('pizzas.Ingrediente')
     def tem_lactose_denormalized(self):
         return self.tem_lactose
 
