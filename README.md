@@ -7,6 +7,8 @@ Este repositório contem um projeto com diversos exemplos dos conceitos discutid
 - Crie um banco PostgreSQL chamado pizzaproject: `createdb pizzaproject` 
 - Rode as migrações: `python manage.py migrate`
 - Carregue os dados de exemplo: `python manage.py loaddata fixtures.json`
+- Atualize as materialized views: `python manage.py sync_pgviews`
+- Atualize os triggers: `python manage.py denorm_init`
 - Rode o servidor local: `python manage.py runserver`
 
 
@@ -24,11 +26,11 @@ Confira `PizzariaQuerySet` em [pizzarias/models.py](pizzarias/models.py) e o uso
 
 
 ### Materialized Views
-Confira `SaborPizzaMaterializedView` em [pizzas/models.py](pizzas/models.py).
+Confira `SaborPizzaMaterializedView` em [pizzas/models.py](pizzas/models.py). Após alterar `Ingrediente`s, rode `python manage.py sync_pgviews` para atualizar os valores da materialized view.
 
 
 ### Triggers + Colunas desnormalizadas
-Confira `tem_lactose_denormalized` dentro de `SaborPizza` do [pizzas/models.py](pizzas/models.py).
+Confira `tem_lactose_denormalized` dentro de `SaborPizza` do [pizzas/models.py](pizzas/models.py). Se mudar a lógica ou os campos `denormalized`, rode `python manage.py denorm_init` para atualizar os triggers e `python manage.py makemigrations` + `python manage.py migrate` se necessário.
 
 
 ## Contato
