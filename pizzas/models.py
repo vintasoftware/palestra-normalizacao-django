@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Exists, OuterRef
 
+from django_pgviews import view
+
 
 class SaborPizzaQuerySet(models.QuerySet):
 
@@ -39,6 +41,29 @@ class SaborPizza(models.Model):
 class Ingrediente(models.Model):
     nome = models.CharField(max_length=255)
     tem_lactose = models.BooleanField()
+
+    def __str__(self):
+        return self.nome
+
+
+class SaborPizzaMaterializedView(view.MaterializedView):
+    id = models.IntegerField(primary_key=True)
+    nome = models.CharField(max_length=255)
+    sem_lactose = models.BooleanField()
+
+    sql = '''
+        SELECT
+            id,
+            nome,
+            EXISTS(
+                SELECT U0."id", U0."nome", U0."tem_lactose"
+                FROM "pizzas_ingrediente" U0
+                INNER JOIN "pizzas_saborpizza_ingredientes" U1 ON U0."id" = U1."ingrediente_id"
+                WHERE U1."saborpizza_id" = "pizzas_saborpizza"."id" AND U0."tem_lactose" = TRUE
+            ) AS sem_lactose
+        FROM
+            pizzas_saborpizza
+    '''
 
     def __str__(self):
         return self.nome
