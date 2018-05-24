@@ -26,7 +26,7 @@ class ItemPedido(models.Model):
     # Por isso o `on_delete=models.PROTECT` abaixo:
     item_cardapio = models.ForeignKey('pizzarias.ItemCardapio', on_delete=models.PROTECT)
     # Mas também é necessário esta tabela intermediária porque um ItemPedido tem quantidade:
-    quantidade = models.IntegerField(validators=[MinValueValidator(1)])
+    quantidade = models.PositiveIntegerField(validators=[MinValueValidator(1)])
 
     class Meta:
         unique_together = ('pedido', 'item_cardapio')

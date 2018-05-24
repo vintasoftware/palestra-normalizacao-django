@@ -42,15 +42,6 @@
 },
 {
     "model": "pizzarias.itemcardapio",
-    "pk": 4,
-    "fields": {
-        "pizzaria": 2,
-        "sabor": 4,
-        "preco": "98.99"
-    }
-},
-{
-    "model": "pizzarias.itemcardapio",
     "pk": 5,
     "fields": {
         "pizzaria": 2,
@@ -66,7 +57,8 @@
         "ingredientes": [
             1,
             2
-        ]
+        ],
+        "tem_lactose_denormalized": false
     }
 },
 {
@@ -76,7 +68,8 @@
         "nome": "Calabresa Habib's",
         "ingredientes": [
             3
-        ]
+        ],
+        "tem_lactose_denormalized": false
     }
 },
 {
@@ -86,18 +79,8 @@
         "nome": "Mozzarella",
         "ingredientes": [
             1
-        ]
-    }
-},
-{
-    "model": "pizzas.saborpizza",
-    "pk": 4,
-    "fields": {
-        "nome": "Pizza Torta",
-        "ingredientes": [
-            1,
-            4
-        ]
+        ],
+        "tem_lactose_denormalized": true
     }
 },
 {
@@ -122,14 +105,6 @@
     "fields": {
         "nome": "Calabresa",
         "tem_lactose": false
-    }
-},
-{
-    "model": "pizzas.ingrediente",
-    "pk": 4,
-    "fields": {
-        "nome": "Torta",
-        "tem_lactose": true
     }
 },
 {

@@ -53,8 +53,8 @@ class Ingrediente(models.Model):
 
 
 class SaborPizzaMaterializedView(view.MaterializedView):
-    id = models.IntegerField(primary_key=True)
-    nome = models.CharField(max_length=255)
+    id = models.PositiveIntegerField(primary_key=True)
+    nome = models.CharField(max_length=255, unique=True)
     tem_lactose = models.BooleanField()
 
     sql = '''

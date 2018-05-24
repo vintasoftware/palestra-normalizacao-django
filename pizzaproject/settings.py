@@ -96,7 +96,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': '',
-        'NAME': 'pizzaproject',
+        'NAME': 'pizzaproject2',
         'HOST': '127.0.0.1',
         'ATOMIC_REQUESTS': True,
     }

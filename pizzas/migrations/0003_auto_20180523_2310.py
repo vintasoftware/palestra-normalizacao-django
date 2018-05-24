@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='SaborPizzaMaterializedView',
             fields=[
                 ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('nome', models.CharField(max_length=255)),
+                ('nome', models.CharField(max_length=255, unique=True)),
                 ('tem_lactose', models.BooleanField()),
             ],
             options={
